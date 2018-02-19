@@ -16,9 +16,31 @@ elseif hour>18 && hour<=21
 elseif hour>21 && hour<=24
     hora=21;
 end
-                        
+
+horacio = hora;
+diacio = day;
+
+
+
+
+
+
 if exist(['Hora' num2str(hora,'%03d') '.grb2'])==0 || exist(['Hora' num2str(hora+3,'%03d') '.grb2'])==0 || exist(['Hora' num2str(hora+6,'%03d') '.grb2'])==0     
-    
+    while day - diacio < 8
+    try
+    mw = ftp('nomads.ncdc.noaa.gov');
+    cd(mw, ['GFS/Grid4/' year month '/' year month diacio]);
+    if isempty(dir(mw,['gfs_4_' year month diacio '_0000_' num2str(horacio,'%03d') '.grb2']))
+        diacio = diacio - 1;
+        horacio = horacio + 24; 
+    end
+    catch
+        disp('mierda')
+    end
+    end
+    hora = horacio;
+    day = diacio;
+
 while exist('files_stored_as')==0 || exist('files_stored_as1')==0 || exist('files_stored_as2')==0 
     if exist('files_stored_as')==0
         try
