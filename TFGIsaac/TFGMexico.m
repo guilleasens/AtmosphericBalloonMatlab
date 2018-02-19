@@ -11,7 +11,7 @@ R=1.1;  %Radio inicial Globo Aproximado%
 lat0=38.936;%dato exacto de la latitud%
 lon0=353.41;%dato exacto de longitud positivo%
 Zi=900; %Altitud sobre el nivel del mar%
-year='2018';%año de vuelo%
+year='2018';%aÃ±o de vuelo%
 month='02';%mes de vuelo%
 day='08';%etc%
 hour=0;
@@ -37,10 +37,12 @@ Mainwinddata1 %Variable definition of wind speeds and Temperatures%
 initialconditions=[Xi;Yi;Zi;0;0;0];%Latitude Longitude Altitude%
 deltaT=0;%variacion de temperatura con respecto a ISA standard%
 Simplificationdef%Reduction of all data to a manageable window of datapoints%
-secc=hour+minute*60+segundos;%Tiempo inicial vuelo en segundos desde prediccion hecha a las doce de la mañana%
+secc=hour+minute*60+segundos;%Tiempo inicial vuelo en segundos desde prediccion hecha a las doce de la maÃ±ana%
 seccf=18000+secc;%Tiempo final de vuelo de globo asumiendo maximo cinco horas%
 %% Integracion Datos y Plot %%
-[t,x]=ode23(@(t,x) integrationTFGdef(t,x,g,Vwx,Vwy,mt,lon0,lat0,lon,lat,iso,mgas,mmolecular,T,hora),[secc:1:seccf], initialconditions);
+%[t,x]=ode23(@(t,x) integrationTFGdef(t,x,g,Vwx,Vwy,mt,lon0,lat0,lon,lat,iso,mgas,mmolecular,T,hora),[secc:1:seccf], initialconditions);
+opts=odeset('Events',@(t,x) myEventFcn(t,x,T,iso,lat,lon,mgas,mmolecular,VB,R,lon0,lat0,hora));
+[t,x,te,xe,ie]=ode23(@(t,x) integrationTFGdef(t,x,g,Vwx,Vwy,mt,lon0,lat0,lon,lat,iso,mgas,mmolecular,T,hora), [secc:1:seccf], initialconditions,opts);
 toc
 plot(x(:,1),x(:,2))
 title('Trayectoria del globo en el plano xy')
