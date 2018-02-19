@@ -1,4 +1,4 @@
-k=3;
+k=5;
 %size of the window to get data , default 7%
 Vwxx=zeros(3,31,2*k+1,2*k+1);
 Vwyy=zeros(3,31,2*k+1,2*k+1);
