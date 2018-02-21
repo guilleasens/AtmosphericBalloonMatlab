@@ -35,7 +35,7 @@ if exist(['Hora' num2str(hora,'%03d') '.grb2'])==0 || exist(['Hora' num2str(hora
         horacio = horacio + 24; 
     end
     catch
-        disp('mierda')
+        disp('Error, trying again...')
     end
     end
     hora = horacio;
