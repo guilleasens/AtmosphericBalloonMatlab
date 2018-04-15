@@ -8,8 +8,8 @@ Vby=x(5);
 Vbz=x(6);
 time=[hora*3600 (hora+3)*3600 (hora+6)*3600];
 time=single(time);
-lon1=lon0+X/111120;
 lat1=lat0+Y/111120;
+lon1=lon0+X/(111120*abs(cosd(lat1)));
 iso1=((1-2.25569*10^-5*Z)^5.25619)*100000; 
 %%Interp velocity%%
 Vwxx = interpn(time,iso,lat,lon,Vwx,t,iso1,lat1,lon1);
